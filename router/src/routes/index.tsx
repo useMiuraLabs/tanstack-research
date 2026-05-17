@@ -21,6 +21,20 @@ function Home() {
       <Link to="/posts" className="mt-2 block text-blue-600 underline">
         Posts 実験へ
       </Link>
+      <Link
+        to="/search"
+        search={{
+          q: '',
+          category: 'all',
+          sort: 'name',
+          page: 1,
+          perPage: 10,
+          inStockOnly: false,
+        }}
+        className="mt-2 block text-blue-600 underline"
+      >
+        Search Params 実験へ
+      </Link>
     </div>
   )
 }

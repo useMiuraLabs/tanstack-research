@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SearchRouteImport } from './routes/search'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as PostsRouteImport } from './routes/posts'
 import { Route as AboutRouteImport } from './routes/about'
@@ -19,6 +20,11 @@ import { Route as ProductsFreshRouteImport } from './routes/products.fresh'
 import { Route as ProductsCachedRouteImport } from './routes/products.cached'
 import { Route as PostsPostIdRouteImport } from './routes/posts.$postId'
 
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductsRoute = ProductsRouteImport.update({
   id: '/products',
   path: '/products',
@@ -70,6 +76,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/posts': typeof PostsRouteWithChildren
   '/products': typeof ProductsRouteWithChildren
+  '/search': typeof SearchRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/products/cached': typeof ProductsCachedRoute
   '/products/fresh': typeof ProductsFreshRoute
@@ -80,6 +87,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/products': typeof ProductsRouteWithChildren
+  '/search': typeof SearchRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/products/cached': typeof ProductsCachedRoute
   '/products/fresh': typeof ProductsFreshRoute
@@ -92,6 +100,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/posts': typeof PostsRouteWithChildren
   '/products': typeof ProductsRouteWithChildren
+  '/search': typeof SearchRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/products/cached': typeof ProductsCachedRoute
   '/products/fresh': typeof ProductsFreshRoute
@@ -105,6 +114,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/posts'
     | '/products'
+    | '/search'
     | '/posts/$postId'
     | '/products/cached'
     | '/products/fresh'
@@ -115,6 +125,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/products'
+    | '/search'
     | '/posts/$postId'
     | '/products/cached'
     | '/products/fresh'
@@ -126,6 +137,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/posts'
     | '/products'
+    | '/search'
     | '/posts/$postId'
     | '/products/cached'
     | '/products/fresh'
@@ -138,10 +150,18 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   PostsRoute: typeof PostsRouteWithChildren
   ProductsRoute: typeof ProductsRouteWithChildren
+  SearchRoute: typeof SearchRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/products': {
       id: '/products'
       path: '/products'
@@ -241,6 +261,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   PostsRoute: PostsRouteWithChildren,
   ProductsRoute: ProductsRouteWithChildren,
+  SearchRoute: SearchRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
