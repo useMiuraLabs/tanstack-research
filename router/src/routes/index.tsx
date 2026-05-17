@@ -12,6 +12,15 @@ function Home() {
       <Link to="/about" className="mt-4 inline-block text-blue-600 underline">
         About ページへ
       </Link>
+      <Link
+        to="/products/fresh"
+        className="mt-2 block text-blue-600 underline"
+      >
+        Products 実験へ
+      </Link>
+      <Link to="/posts" className="mt-2 block text-blue-600 underline">
+        Posts 実験へ
+      </Link>
     </div>
   )
 }
