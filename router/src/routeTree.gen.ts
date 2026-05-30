@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as PostsRouteImport } from './routes/posts'
+import { Route as EchoRouteImport } from './routes/echo'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PostsIndexRouteImport } from './routes/posts.index'
@@ -33,6 +34,11 @@ const ProductsRoute = ProductsRouteImport.update({
 const PostsRoute = PostsRouteImport.update({
   id: '/posts',
   path: '/posts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EchoRoute = EchoRouteImport.update({
+  id: '/echo',
+  path: '/echo',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -74,6 +80,7 @@ const PostsPostIdRoute = PostsPostIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/echo': typeof EchoRoute
   '/posts': typeof PostsRouteWithChildren
   '/products': typeof ProductsRouteWithChildren
   '/search': typeof SearchRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/echo': typeof EchoRoute
   '/products': typeof ProductsRouteWithChildren
   '/search': typeof SearchRoute
   '/posts/$postId': typeof PostsPostIdRoute
@@ -98,6 +106,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/echo': typeof EchoRoute
   '/posts': typeof PostsRouteWithChildren
   '/products': typeof ProductsRouteWithChildren
   '/search': typeof SearchRoute
@@ -112,6 +121,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/echo'
     | '/posts'
     | '/products'
     | '/search'
@@ -124,6 +134,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/echo'
     | '/products'
     | '/search'
     | '/posts/$postId'
@@ -135,6 +146,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/echo'
     | '/posts'
     | '/products'
     | '/search'
@@ -148,6 +160,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  EchoRoute: typeof EchoRoute
   PostsRoute: typeof PostsRouteWithChildren
   ProductsRoute: typeof ProductsRouteWithChildren
   SearchRoute: typeof SearchRoute
@@ -174,6 +187,13 @@ declare module '@tanstack/react-router' {
       path: '/posts'
       fullPath: '/posts'
       preLoaderRoute: typeof PostsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/echo': {
+      id: '/echo'
+      path: '/echo'
+      fullPath: '/echo'
+      preLoaderRoute: typeof EchoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -259,6 +279,7 @@ const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  EchoRoute: EchoRoute,
   PostsRoute: PostsRouteWithChildren,
   ProductsRoute: ProductsRouteWithChildren,
   SearchRoute: SearchRoute,
