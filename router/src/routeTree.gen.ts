@@ -9,38 +9,200 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SearchRouteImport } from './routes/search'
+import { Route as ProductsRouteImport } from './routes/products'
+import { Route as PostsRouteImport } from './routes/posts'
+import { Route as EchoRouteImport } from './routes/echo'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PostsIndexRouteImport } from './routes/posts.index'
+import { Route as ProductsPreloadFreshRouteImport } from './routes/products.preload-fresh'
+import { Route as ProductsFreshRouteImport } from './routes/products.fresh'
+import { Route as ProductsCachedRouteImport } from './routes/products.cached'
+import { Route as PostsPostIdRouteImport } from './routes/posts.$postId'
 
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsRoute = ProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PostsRoute = PostsRouteImport.update({
+  id: '/posts',
+  path: '/posts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EchoRoute = EchoRouteImport.update({
+  id: '/echo',
+  path: '/echo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PostsIndexRoute = PostsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PostsRoute,
+} as any)
+const ProductsPreloadFreshRoute = ProductsPreloadFreshRouteImport.update({
+  id: '/preload-fresh',
+  path: '/preload-fresh',
+  getParentRoute: () => ProductsRoute,
+} as any)
+const ProductsFreshRoute = ProductsFreshRouteImport.update({
+  id: '/fresh',
+  path: '/fresh',
+  getParentRoute: () => ProductsRoute,
+} as any)
+const ProductsCachedRoute = ProductsCachedRouteImport.update({
+  id: '/cached',
+  path: '/cached',
+  getParentRoute: () => ProductsRoute,
+} as any)
+const PostsPostIdRoute = PostsPostIdRouteImport.update({
+  id: '/$postId',
+  path: '/$postId',
+  getParentRoute: () => PostsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/echo': typeof EchoRoute
+  '/posts': typeof PostsRouteWithChildren
+  '/products': typeof ProductsRouteWithChildren
+  '/search': typeof SearchRoute
+  '/posts/$postId': typeof PostsPostIdRoute
+  '/products/cached': typeof ProductsCachedRoute
+  '/products/fresh': typeof ProductsFreshRoute
+  '/products/preload-fresh': typeof ProductsPreloadFreshRoute
+  '/posts/': typeof PostsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/echo': typeof EchoRoute
+  '/products': typeof ProductsRouteWithChildren
+  '/search': typeof SearchRoute
+  '/posts/$postId': typeof PostsPostIdRoute
+  '/products/cached': typeof ProductsCachedRoute
+  '/products/fresh': typeof ProductsFreshRoute
+  '/products/preload-fresh': typeof ProductsPreloadFreshRoute
+  '/posts': typeof PostsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/echo': typeof EchoRoute
+  '/posts': typeof PostsRouteWithChildren
+  '/products': typeof ProductsRouteWithChildren
+  '/search': typeof SearchRoute
+  '/posts/$postId': typeof PostsPostIdRoute
+  '/products/cached': typeof ProductsCachedRoute
+  '/products/fresh': typeof ProductsFreshRoute
+  '/products/preload-fresh': typeof ProductsPreloadFreshRoute
+  '/posts/': typeof PostsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/echo'
+    | '/posts'
+    | '/products'
+    | '/search'
+    | '/posts/$postId'
+    | '/products/cached'
+    | '/products/fresh'
+    | '/products/preload-fresh'
+    | '/posts/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/echo'
+    | '/products'
+    | '/search'
+    | '/posts/$postId'
+    | '/products/cached'
+    | '/products/fresh'
+    | '/products/preload-fresh'
+    | '/posts'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/echo'
+    | '/posts'
+    | '/products'
+    | '/search'
+    | '/posts/$postId'
+    | '/products/cached'
+    | '/products/fresh'
+    | '/products/preload-fresh'
+    | '/posts/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  EchoRoute: typeof EchoRoute
+  PostsRoute: typeof PostsRouteWithChildren
+  ProductsRoute: typeof ProductsRouteWithChildren
+  SearchRoute: typeof SearchRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products': {
+      id: '/products'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof ProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/posts': {
+      id: '/posts'
+      path: '/posts'
+      fullPath: '/posts'
+      preLoaderRoute: typeof PostsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/echo': {
+      id: '/echo'
+      path: '/echo'
+      fullPath: '/echo'
+      preLoaderRoute: typeof EchoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +210,79 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/posts/': {
+      id: '/posts/'
+      path: '/'
+      fullPath: '/posts/'
+      preLoaderRoute: typeof PostsIndexRouteImport
+      parentRoute: typeof PostsRoute
+    }
+    '/products/preload-fresh': {
+      id: '/products/preload-fresh'
+      path: '/preload-fresh'
+      fullPath: '/products/preload-fresh'
+      preLoaderRoute: typeof ProductsPreloadFreshRouteImport
+      parentRoute: typeof ProductsRoute
+    }
+    '/products/fresh': {
+      id: '/products/fresh'
+      path: '/fresh'
+      fullPath: '/products/fresh'
+      preLoaderRoute: typeof ProductsFreshRouteImport
+      parentRoute: typeof ProductsRoute
+    }
+    '/products/cached': {
+      id: '/products/cached'
+      path: '/cached'
+      fullPath: '/products/cached'
+      preLoaderRoute: typeof ProductsCachedRouteImport
+      parentRoute: typeof ProductsRoute
+    }
+    '/posts/$postId': {
+      id: '/posts/$postId'
+      path: '/$postId'
+      fullPath: '/posts/$postId'
+      preLoaderRoute: typeof PostsPostIdRouteImport
+      parentRoute: typeof PostsRoute
+    }
   }
 }
 
+interface PostsRouteChildren {
+  PostsPostIdRoute: typeof PostsPostIdRoute
+  PostsIndexRoute: typeof PostsIndexRoute
+}
+
+const PostsRouteChildren: PostsRouteChildren = {
+  PostsPostIdRoute: PostsPostIdRoute,
+  PostsIndexRoute: PostsIndexRoute,
+}
+
+const PostsRouteWithChildren = PostsRoute._addFileChildren(PostsRouteChildren)
+
+interface ProductsRouteChildren {
+  ProductsCachedRoute: typeof ProductsCachedRoute
+  ProductsFreshRoute: typeof ProductsFreshRoute
+  ProductsPreloadFreshRoute: typeof ProductsPreloadFreshRoute
+}
+
+const ProductsRouteChildren: ProductsRouteChildren = {
+  ProductsCachedRoute: ProductsCachedRoute,
+  ProductsFreshRoute: ProductsFreshRoute,
+  ProductsPreloadFreshRoute: ProductsPreloadFreshRoute,
+}
+
+const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
+  ProductsRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  EchoRoute: EchoRoute,
+  PostsRoute: PostsRouteWithChildren,
+  ProductsRoute: ProductsRouteWithChildren,
+  SearchRoute: SearchRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
