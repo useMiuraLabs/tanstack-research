@@ -14,6 +14,7 @@ import { Route as ProductsRouteImport } from './routes/products'
 import { Route as PostsRouteImport } from './routes/posts'
 import { Route as EchoRouteImport } from './routes/echo'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AppRouteImport } from './routes/app'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PostsIndexRouteImport } from './routes/posts.index'
@@ -21,6 +22,7 @@ import { Route as ProductsPreloadFreshRouteImport } from './routes/products.prel
 import { Route as ProductsFreshRouteImport } from './routes/products.fresh'
 import { Route as ProductsCachedRouteImport } from './routes/products.cached'
 import { Route as PostsPostIdRouteImport } from './routes/posts.$postId'
+import { Route as AppDashboardRouteImport } from './routes/app.dashboard'
 
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
@@ -45,6 +47,11 @@ const EchoRoute = EchoRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -82,15 +89,22 @@ const PostsPostIdRoute = PostsPostIdRouteImport.update({
   path: '/$postId',
   getParentRoute: () => PostsRoute,
 } as any)
+const AppDashboardRoute = AppDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
   '/echo': typeof EchoRoute
   '/posts': typeof PostsRouteWithChildren
   '/products': typeof ProductsRouteWithChildren
   '/search': typeof SearchRoute
+  '/app/dashboard': typeof AppDashboardRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/products/cached': typeof ProductsCachedRoute
   '/products/fresh': typeof ProductsFreshRoute
@@ -100,10 +114,12 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
   '/echo': typeof EchoRoute
   '/products': typeof ProductsRouteWithChildren
   '/search': typeof SearchRoute
+  '/app/dashboard': typeof AppDashboardRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/products/cached': typeof ProductsCachedRoute
   '/products/fresh': typeof ProductsFreshRoute
@@ -114,11 +130,13 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
   '/echo': typeof EchoRoute
   '/posts': typeof PostsRouteWithChildren
   '/products': typeof ProductsRouteWithChildren
   '/search': typeof SearchRoute
+  '/app/dashboard': typeof AppDashboardRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/products/cached': typeof ProductsCachedRoute
   '/products/fresh': typeof ProductsFreshRoute
@@ -130,11 +148,13 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/app'
     | '/auth'
     | '/echo'
     | '/posts'
     | '/products'
     | '/search'
+    | '/app/dashboard'
     | '/posts/$postId'
     | '/products/cached'
     | '/products/fresh'
@@ -144,10 +164,12 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/app'
     | '/auth'
     | '/echo'
     | '/products'
     | '/search'
+    | '/app/dashboard'
     | '/posts/$postId'
     | '/products/cached'
     | '/products/fresh'
@@ -157,11 +179,13 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/app'
     | '/auth'
     | '/echo'
     | '/posts'
     | '/products'
     | '/search'
+    | '/app/dashboard'
     | '/posts/$postId'
     | '/products/cached'
     | '/products/fresh'
@@ -172,6 +196,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AppRoute: typeof AppRouteWithChildren
   AuthRoute: typeof AuthRoute
   EchoRoute: typeof EchoRoute
   PostsRoute: typeof PostsRouteWithChildren
@@ -214,6 +239,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -265,8 +297,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PostsPostIdRouteImport
       parentRoute: typeof PostsRoute
     }
+    '/app/dashboard': {
+      id: '/app/dashboard'
+      path: '/dashboard'
+      fullPath: '/app/dashboard'
+      preLoaderRoute: typeof AppDashboardRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
+
+interface AppRouteChildren {
+  AppDashboardRoute: typeof AppDashboardRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppDashboardRoute: AppDashboardRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
 interface PostsRouteChildren {
   PostsPostIdRoute: typeof PostsPostIdRoute
@@ -299,6 +348,7 @@ const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AppRoute: AppRouteWithChildren,
   AuthRoute: AuthRoute,
   EchoRoute: EchoRoute,
   PostsRoute: PostsRouteWithChildren,
