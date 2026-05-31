@@ -1,6 +1,6 @@
-import { Link, Outlet, createFileRoute } from '@tanstack/react-router'
+import { Link, Outlet, createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/posts')({ component: PostsLayout })
+export const Route = createFileRoute("/posts")({ component: PostsLayout });
 
 function PostsLayout() {
   return (
@@ -13,5 +13,5 @@ function PostsLayout() {
         <Outlet />
       </div>
     </div>
-  )
+  );
 }

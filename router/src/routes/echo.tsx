@@ -1,20 +1,20 @@
 // route の定義
 
-import { createFileRoute, Link } from '@tanstack/react-router'
-import { z } from 'zod'
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { z } from "zod";
 
-const ui = ['grid', 'view'] as const
+const ui = ["grid", "view"] as const;
 const echoSearchSchema = z.object({
-  q: z.string().default('').catch(''),
+  q: z.string().default("").catch(""),
   pageCatch: z.number().min(1).catch(1),
   pageDefault: z.number().min(1).default(1),
-  debug: z.string().catch(''),
-  sort: z.enum(['ASC', 'DESC']).catch('ASC'),
+  debug: z.string().catch(""),
+  sort: z.enum(["ASC", "DESC"]).catch("ASC"),
   tags: z.string().array().catch([]),
-  ui: z.enum(ui).catch('grid'),
-})
+  ui: z.enum(ui).catch("grid"),
+});
 
-export const Route = createFileRoute('/echo')({
+export const Route = createFileRoute("/echo")({
   validateSearch: echoSearchSchema,
   loaderDeps: ({ search }) => ({
     q: search.q,
@@ -23,26 +23,26 @@ export const Route = createFileRoute('/echo')({
     tags: search.tags,
   }),
   loader: ({ deps }) => {
-    return { ...deps, fetchedAt: Date.now() }
+    return { ...deps, fetchedAt: Date.now() };
   },
   component: Echo,
   errorComponent: () => {
-    return <div>error です</div>
+    return <div>error です</div>;
   },
-})
+});
 
 function Echo() {
-  const params = Route.useSearch()
-  const navigate = Route.useNavigate()
+  const params = Route.useSearch();
+  const navigate = Route.useNavigate();
 
-  const res = Route.useLoaderData()
+  const res = Route.useLoaderData();
 
   const handleQueryChange = (input: string) => {
     return navigate({
       search: (prev) => ({ ...prev, q: input }),
       replace: true,
-    })
-  }
+    });
+  };
   return (
     <div>
       <input
@@ -50,7 +50,7 @@ function Echo() {
         value={params.q}
         className=" outline m-3"
         onChange={(e) => {
-          handleQueryChange(e.target.value)
+          handleQueryChange(e.target.value);
         }}
       />
       <div>params: ui: {params.ui}</div>
@@ -81,30 +81,22 @@ function Echo() {
           <Link
             to="."
             from={Route.fullPath}
-            search={(prev) => ({ ...prev, tags: ['test', 'test', 'test'] })}
+            search={(prev) => ({ ...prev, tags: ["test", "test", "test"] })}
           >
             tags を進める（useSearch使用）
           </Link>
         </div>
         <div>
-          <Link
-            to="."
-            from={Route.fullPath}
-            search={(prev) => ({ ...prev, ui: 'view' })}
-          >
+          <Link to="." from={Route.fullPath} search={(prev) => ({ ...prev, ui: "view" })}>
             view
           </Link>
         </div>
         <div>
-          <Link
-            to="."
-            from={Route.fullPath}
-            search={(prev) => ({ ...prev, ui: 'grid' })}
-          >
+          <Link to="." from={Route.fullPath} search={(prev) => ({ ...prev, ui: "grid" })}>
             grid
           </Link>
         </div>
       </div>
     </div>
-  )
+  );
 }

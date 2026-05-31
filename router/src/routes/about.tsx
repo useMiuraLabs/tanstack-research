@@ -1,6 +1,6 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/about')({ component: About })
+export const Route = createFileRoute("/about")({ component: About });
 
 function About() {
   return (
@@ -8,5 +8,5 @@ function About() {
       <h1 className="text-4xl font-bold">About</h1>
       <p className="mt-4 text-lg">Static Route の検証用ページです。</p>
     </div>
-  )
+  );
 }

@@ -1,13 +1,13 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
-import { fetchPosts } from '../lib/fakeApi'
+import { Link, createFileRoute } from "@tanstack/react-router";
+import { fetchPosts } from "../lib/fakeApi";
 
-export const Route = createFileRoute('/posts/')({
+export const Route = createFileRoute("/posts/")({
   loader: () => fetchPosts(),
   component: PostsIndex,
-})
+});
 
 function PostsIndex() {
-  const posts = Route.useLoaderData()
+  const posts = Route.useLoaderData();
   return (
     <ul className="grid gap-3">
       {posts.map((post) => (
@@ -23,5 +23,5 @@ function PostsIndex() {
         </li>
       ))}
     </ul>
-  )
+  );
 }

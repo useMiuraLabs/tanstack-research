@@ -1,15 +1,15 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { fetchProduct } from '../lib/fakeApi'
+import { createFileRoute } from "@tanstack/react-router";
+import { fetchProduct } from "../lib/fakeApi";
 
-export const Route = createFileRoute('/products/preload-fresh')({
-  loader: () => fetchProduct('preload-fresh'),
+export const Route = createFileRoute("/products/preload-fresh")({
+  loader: () => fetchProduct("preload-fresh"),
   staleTime: 30_000,
   preloadStaleTime: 0,
   component: ProductPage,
-})
+});
 
 function ProductPage() {
-  const product = Route.useLoaderData()
+  const product = Route.useLoaderData();
   return (
     <section className="rounded-lg border border-gray-200 p-6">
       <p className="text-sm text-gray-500">
@@ -29,5 +29,5 @@ function ProductPage() {
         </div>
       </dl>
     </section>
-  )
+  );
 }

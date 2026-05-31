@@ -1,6 +1,6 @@
-import { Link, Outlet, createFileRoute } from '@tanstack/react-router'
+import { Link, Outlet, createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/products')({ component: ProductsLayout })
+export const Route = createFileRoute("/products")({ component: ProductsLayout });
 
 function ProductsLayout() {
   return (
@@ -15,7 +15,7 @@ function ProductsLayout() {
         <Link
           to="/products/fresh"
           className="block rounded-lg border border-gray-300 p-4 hover:bg-gray-50"
-          activeProps={{ className: 'border-blue-500 bg-blue-50' }}
+          activeProps={{ className: "border-blue-500 bg-blue-50" }}
         >
           <div className="font-semibold">/products/fresh</div>
           <div className="mt-1 text-sm text-gray-600">
@@ -28,7 +28,7 @@ function ProductsLayout() {
         <Link
           to="/products/cached"
           className="block rounded-lg border border-gray-300 p-4 hover:bg-gray-50"
-          activeProps={{ className: 'border-blue-500 bg-blue-50' }}
+          activeProps={{ className: "border-blue-500 bg-blue-50" }}
         >
           <div className="font-semibold">/products/cached</div>
           <div className="mt-1 text-sm text-gray-600">
@@ -41,7 +41,7 @@ function ProductsLayout() {
         <Link
           to="/products/preload-fresh"
           className="block rounded-lg border border-gray-300 p-4 hover:bg-gray-50"
-          activeProps={{ className: 'border-blue-500 bg-blue-50' }}
+          activeProps={{ className: "border-blue-500 bg-blue-50" }}
         >
           <div className="font-semibold">/products/preload-fresh</div>
           <div className="mt-1 text-sm text-gray-600">
@@ -56,5 +56,5 @@ function ProductsLayout() {
         <Outlet />
       </div>
     </div>
-  )
+  );
 }

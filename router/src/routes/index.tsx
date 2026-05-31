@@ -1,6 +1,6 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/')({ component: Home })
+export const Route = createFileRoute("/")({ component: Home });
 
 function Home() {
   return (
@@ -21,9 +21,9 @@ function Home() {
       <Link
         to="/search"
         search={{
-          q: '',
-          category: 'all',
-          sort: 'name',
+          q: "",
+          category: "all",
+          sort: "name",
           page: 1,
           perPage: 10,
           inStockOnly: false,
@@ -35,16 +35,20 @@ function Home() {
       <Link
         to="/echo"
         search={{
-          q: '',
+          q: "",
           pageCatch: 1,
           pageDefault: 1,
-          debug: '',
+          debug: "",
           tags: [],
-          sort: 'ASC',
+          sort: "ASC",
+          ui: "grid",
         }}
       >
         Echo
       </Link>
+      <Link to="/auth" className="mt-2 block text-blue-600 underline">
+        Auth check 実験へ（未認証なら Echo へ redirect）
+      </Link>
     </div>
-  )
+  );
 }
