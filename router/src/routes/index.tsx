@@ -52,6 +52,15 @@ function Home() {
       <Link to="/app/dashboard" className="mt-2 block text-blue-600 underline">
         App Dashboard 実験へ（親 route の beforeLoad で guard）
       </Link>
+      <Link
+        to="/auth-lab/unknown-return"
+        className="mt-2 block text-blue-600 underline"
+      >
+        Auth unknown return 実験へ（アンチパターン）
+      </Link>
+      <Link to="/auth-lab/wait" className="mt-2 block text-blue-600 underline">
+        Auth wait 実験へ（判定完了を待って redirect）
+      </Link>
     </div>
   );
 }

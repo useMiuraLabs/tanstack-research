@@ -22,6 +22,8 @@ import { Route as ProductsPreloadFreshRouteImport } from './routes/products.prel
 import { Route as ProductsFreshRouteImport } from './routes/products.fresh'
 import { Route as ProductsCachedRouteImport } from './routes/products.cached'
 import { Route as PostsPostIdRouteImport } from './routes/posts.$postId'
+import { Route as AuthLabWaitRouteImport } from './routes/auth-lab.wait'
+import { Route as AuthLabUnknownReturnRouteImport } from './routes/auth-lab.unknown-return'
 import { Route as AppDashboardRouteImport } from './routes/app.dashboard'
 
 const SearchRoute = SearchRouteImport.update({
@@ -89,6 +91,16 @@ const PostsPostIdRoute = PostsPostIdRouteImport.update({
   path: '/$postId',
   getParentRoute: () => PostsRoute,
 } as any)
+const AuthLabWaitRoute = AuthLabWaitRouteImport.update({
+  id: '/auth-lab/wait',
+  path: '/auth-lab/wait',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthLabUnknownReturnRoute = AuthLabUnknownReturnRouteImport.update({
+  id: '/auth-lab/unknown-return',
+  path: '/auth-lab/unknown-return',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppDashboardRoute = AppDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -105,6 +117,8 @@ export interface FileRoutesByFullPath {
   '/products': typeof ProductsRouteWithChildren
   '/search': typeof SearchRoute
   '/app/dashboard': typeof AppDashboardRoute
+  '/auth-lab/unknown-return': typeof AuthLabUnknownReturnRoute
+  '/auth-lab/wait': typeof AuthLabWaitRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/products/cached': typeof ProductsCachedRoute
   '/products/fresh': typeof ProductsFreshRoute
@@ -120,6 +134,8 @@ export interface FileRoutesByTo {
   '/products': typeof ProductsRouteWithChildren
   '/search': typeof SearchRoute
   '/app/dashboard': typeof AppDashboardRoute
+  '/auth-lab/unknown-return': typeof AuthLabUnknownReturnRoute
+  '/auth-lab/wait': typeof AuthLabWaitRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/products/cached': typeof ProductsCachedRoute
   '/products/fresh': typeof ProductsFreshRoute
@@ -137,6 +153,8 @@ export interface FileRoutesById {
   '/products': typeof ProductsRouteWithChildren
   '/search': typeof SearchRoute
   '/app/dashboard': typeof AppDashboardRoute
+  '/auth-lab/unknown-return': typeof AuthLabUnknownReturnRoute
+  '/auth-lab/wait': typeof AuthLabWaitRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/products/cached': typeof ProductsCachedRoute
   '/products/fresh': typeof ProductsFreshRoute
@@ -155,6 +173,8 @@ export interface FileRouteTypes {
     | '/products'
     | '/search'
     | '/app/dashboard'
+    | '/auth-lab/unknown-return'
+    | '/auth-lab/wait'
     | '/posts/$postId'
     | '/products/cached'
     | '/products/fresh'
@@ -170,6 +190,8 @@ export interface FileRouteTypes {
     | '/products'
     | '/search'
     | '/app/dashboard'
+    | '/auth-lab/unknown-return'
+    | '/auth-lab/wait'
     | '/posts/$postId'
     | '/products/cached'
     | '/products/fresh'
@@ -186,6 +208,8 @@ export interface FileRouteTypes {
     | '/products'
     | '/search'
     | '/app/dashboard'
+    | '/auth-lab/unknown-return'
+    | '/auth-lab/wait'
     | '/posts/$postId'
     | '/products/cached'
     | '/products/fresh'
@@ -202,6 +226,8 @@ export interface RootRouteChildren {
   PostsRoute: typeof PostsRouteWithChildren
   ProductsRoute: typeof ProductsRouteWithChildren
   SearchRoute: typeof SearchRoute
+  AuthLabUnknownReturnRoute: typeof AuthLabUnknownReturnRoute
+  AuthLabWaitRoute: typeof AuthLabWaitRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -297,6 +323,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PostsPostIdRouteImport
       parentRoute: typeof PostsRoute
     }
+    '/auth-lab/wait': {
+      id: '/auth-lab/wait'
+      path: '/auth-lab/wait'
+      fullPath: '/auth-lab/wait'
+      preLoaderRoute: typeof AuthLabWaitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth-lab/unknown-return': {
+      id: '/auth-lab/unknown-return'
+      path: '/auth-lab/unknown-return'
+      fullPath: '/auth-lab/unknown-return'
+      preLoaderRoute: typeof AuthLabUnknownReturnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/app/dashboard': {
       id: '/app/dashboard'
       path: '/dashboard'
@@ -354,6 +394,8 @@ const rootRouteChildren: RootRouteChildren = {
   PostsRoute: PostsRouteWithChildren,
   ProductsRoute: ProductsRouteWithChildren,
   SearchRoute: SearchRoute,
+  AuthLabUnknownReturnRoute: AuthLabUnknownReturnRoute,
+  AuthLabWaitRoute: AuthLabWaitRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
