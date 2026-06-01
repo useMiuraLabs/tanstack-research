@@ -4,15 +4,9 @@ export const Route = createFileRoute("/app")({
   beforeLoad: ({ context, location }) => {
     if (context.auth.state.status !== "authenticated") {
       throw redirect({
-        to: "/echo",
+        to: "/login",
         search: {
-          q: "login しろぼけ",
-          pageCatch: 1,
-          pageDefault: 1,
-          debug: `app guard redirected from ${location.href}`,
-          sort: "ASC",
-          tags: [],
-          ui: "grid",
+          redirect: location.href,
         },
       });
     }

@@ -49,6 +49,9 @@ function Home() {
       <Link to="/auth" className="mt-2 block text-blue-600 underline">
         Auth check 実験へ（未認証なら Echo へ redirect）
       </Link>
+      <Link to="/login" search={{ redirect: "/app/dashboard" }} className="mt-2 block text-blue-600 underline">
+        Login 実験へ（redirect search param）
+      </Link>
       <Link to="/app/dashboard" className="mt-2 block text-blue-600 underline">
         App Dashboard 実験へ（親 route の beforeLoad で guard）
       </Link>

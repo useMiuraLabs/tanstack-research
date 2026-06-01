@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as PostsRouteImport } from './routes/posts'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as EchoRouteImport } from './routes/echo'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppRouteImport } from './routes/app'
@@ -39,6 +40,11 @@ const ProductsRoute = ProductsRouteImport.update({
 const PostsRoute = PostsRouteImport.update({
   id: '/posts',
   path: '/posts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EchoRoute = EchoRouteImport.update({
@@ -113,6 +119,7 @@ export interface FileRoutesByFullPath {
   '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
   '/echo': typeof EchoRoute
+  '/login': typeof LoginRoute
   '/posts': typeof PostsRouteWithChildren
   '/products': typeof ProductsRouteWithChildren
   '/search': typeof SearchRoute
@@ -131,6 +138,7 @@ export interface FileRoutesByTo {
   '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
   '/echo': typeof EchoRoute
+  '/login': typeof LoginRoute
   '/products': typeof ProductsRouteWithChildren
   '/search': typeof SearchRoute
   '/app/dashboard': typeof AppDashboardRoute
@@ -149,6 +157,7 @@ export interface FileRoutesById {
   '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
   '/echo': typeof EchoRoute
+  '/login': typeof LoginRoute
   '/posts': typeof PostsRouteWithChildren
   '/products': typeof ProductsRouteWithChildren
   '/search': typeof SearchRoute
@@ -169,6 +178,7 @@ export interface FileRouteTypes {
     | '/app'
     | '/auth'
     | '/echo'
+    | '/login'
     | '/posts'
     | '/products'
     | '/search'
@@ -187,6 +197,7 @@ export interface FileRouteTypes {
     | '/app'
     | '/auth'
     | '/echo'
+    | '/login'
     | '/products'
     | '/search'
     | '/app/dashboard'
@@ -204,6 +215,7 @@ export interface FileRouteTypes {
     | '/app'
     | '/auth'
     | '/echo'
+    | '/login'
     | '/posts'
     | '/products'
     | '/search'
@@ -223,6 +235,7 @@ export interface RootRouteChildren {
   AppRoute: typeof AppRouteWithChildren
   AuthRoute: typeof AuthRoute
   EchoRoute: typeof EchoRoute
+  LoginRoute: typeof LoginRoute
   PostsRoute: typeof PostsRouteWithChildren
   ProductsRoute: typeof ProductsRouteWithChildren
   SearchRoute: typeof SearchRoute
@@ -251,6 +264,13 @@ declare module '@tanstack/react-router' {
       path: '/posts'
       fullPath: '/posts'
       preLoaderRoute: typeof PostsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/echo': {
@@ -391,6 +411,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppRoute: AppRouteWithChildren,
   AuthRoute: AuthRoute,
   EchoRoute: EchoRoute,
+  LoginRoute: LoginRoute,
   PostsRoute: PostsRouteWithChildren,
   ProductsRoute: ProductsRouteWithChildren,
   SearchRoute: SearchRoute,
