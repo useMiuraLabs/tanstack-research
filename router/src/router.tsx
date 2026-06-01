@@ -1,12 +1,12 @@
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
-import { initialAuthState } from "./auth";
+import { initialAuthContext } from "./auth";
 import { routeTree } from "./routeTree.gen";
 
 export function getRouter() {
   const router = createTanStackRouter({
     routeTree,
     context: {
-      auth: initialAuthState,
+      auth: initialAuthContext,
     },
     scrollRestoration: true,
     defaultPreload: "intent",
