@@ -56,6 +56,16 @@ function Home() {
         App Dashboard 実験へ（親 route の beforeLoad で guard）
       </Link>
       <Link
+        to="/login"
+        search={{ redirect: "/app/admin" }}
+        className="mt-2 block text-blue-600 underline"
+      >
+        Login 実験へ（redirect=/app/admin で child guard を試す）
+      </Link>
+      <Link to="/app/admin" className="mt-2 block text-blue-600 underline">
+        App Admin 実験へ（子 route の beforeLoad で role guard）
+      </Link>
+      <Link
         to="/auth-lab/unknown-return"
         className="mt-2 block text-blue-600 underline"
       >

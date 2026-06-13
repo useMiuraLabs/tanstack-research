@@ -16,6 +16,16 @@ function LoginPage() {
   const router = useRouter();
   const redirectTo = safeRedirectPath(search.redirect);
 
+  const handleLogin = async (kind: "user" | "admin") => {
+    if (kind === "admin") {
+      await context.auth.loginAsAdmin();
+    } else {
+      await context.auth.loginAsUser();
+    }
+
+    router.history.push(redirectTo);
+  };
+
   return (
     <section className="p-8">
       <h1 className="text-3xl font-bold">Login</h1>
@@ -33,16 +43,22 @@ function LoginPage() {
           <dd className="break-all">{redirectTo}</dd>
         </div>
       </dl>
-      <button
-        type="button"
-        onClick={async () => {
-          await context.auth.login();
-          router.history.push(redirectTo);
-        }}
-        className="mt-4 rounded bg-blue-600 px-4 py-2 font-semibold text-white"
-      >
-        Login して戻る
-      </button>
+      <div className="mt-4 flex flex-wrap gap-2">
+        <button
+          type="button"
+          onClick={() => void handleLogin("user")}
+          className="rounded bg-blue-600 px-4 py-2 font-semibold text-white"
+        >
+          User として login
+        </button>
+        <button
+          type="button"
+          onClick={() => void handleLogin("admin")}
+          className="rounded bg-purple-600 px-4 py-2 font-semibold text-white"
+        >
+          Admin として login
+        </button>
+      </div>
     </section>
   );
 }
