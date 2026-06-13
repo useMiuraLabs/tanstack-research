@@ -17,6 +17,7 @@ import { Route as EchoRouteImport } from './routes/echo'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as R403RouteImport } from './routes/403'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PostsIndexRouteImport } from './routes/posts.index'
@@ -28,6 +29,8 @@ import { Route as AuthLabWaitRouteImport } from './routes/auth-lab.wait'
 import { Route as AuthLabUnknownReturnRouteImport } from './routes/auth-lab.unknown-return'
 import { Route as AppDashboardRouteImport } from './routes/app.dashboard'
 import { Route as AppAdminRouteImport } from './routes/app.admin'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated.settings'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated.profile'
 
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
@@ -67,6 +70,10 @@ const AppRoute = AppRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const R403Route = R403RouteImport.update({
@@ -124,6 +131,16 @@ const AppAdminRoute = AppAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AppRoute,
 } as any)
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -136,6 +153,8 @@ export interface FileRoutesByFullPath {
   '/posts': typeof PostsRouteWithChildren
   '/products': typeof ProductsRouteWithChildren
   '/search': typeof SearchRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/settings': typeof AuthenticatedSettingsRoute
   '/app/admin': typeof AppAdminRoute
   '/app/dashboard': typeof AppDashboardRoute
   '/auth-lab/unknown-return': typeof AuthLabUnknownReturnRoute
@@ -156,6 +175,8 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/products': typeof ProductsRouteWithChildren
   '/search': typeof SearchRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/settings': typeof AuthenticatedSettingsRoute
   '/app/admin': typeof AppAdminRoute
   '/app/dashboard': typeof AppDashboardRoute
   '/auth-lab/unknown-return': typeof AuthLabUnknownReturnRoute
@@ -170,6 +191,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/403': typeof R403Route
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/about': typeof AboutRoute
   '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
@@ -178,6 +200,8 @@ export interface FileRoutesById {
   '/posts': typeof PostsRouteWithChildren
   '/products': typeof ProductsRouteWithChildren
   '/search': typeof SearchRoute
+  '/_authenticated/profile': typeof AuthenticatedProfileRoute
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/app/admin': typeof AppAdminRoute
   '/app/dashboard': typeof AppDashboardRoute
   '/auth-lab/unknown-return': typeof AuthLabUnknownReturnRoute
@@ -201,6 +225,8 @@ export interface FileRouteTypes {
     | '/posts'
     | '/products'
     | '/search'
+    | '/profile'
+    | '/settings'
     | '/app/admin'
     | '/app/dashboard'
     | '/auth-lab/unknown-return'
@@ -221,6 +247,8 @@ export interface FileRouteTypes {
     | '/login'
     | '/products'
     | '/search'
+    | '/profile'
+    | '/settings'
     | '/app/admin'
     | '/app/dashboard'
     | '/auth-lab/unknown-return'
@@ -234,6 +262,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/403'
+    | '/_authenticated'
     | '/about'
     | '/app'
     | '/auth'
@@ -242,6 +271,8 @@ export interface FileRouteTypes {
     | '/posts'
     | '/products'
     | '/search'
+    | '/_authenticated/profile'
+    | '/_authenticated/settings'
     | '/app/admin'
     | '/app/dashboard'
     | '/auth-lab/unknown-return'
@@ -256,6 +287,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   R403Route: typeof R403Route
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   AboutRoute: typeof AboutRoute
   AppRoute: typeof AppRouteWithChildren
   AuthRoute: typeof AuthRoute
@@ -324,6 +356,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/403': {
@@ -403,8 +442,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAdminRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
   }
 }
+
+interface AuthenticatedRouteChildren {
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedProfileRoute: AuthenticatedProfileRoute,
+  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
+)
 
 interface AppRouteChildren {
   AppAdminRoute: typeof AppAdminRoute
@@ -449,6 +516,7 @@ const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   R403Route: R403Route,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AboutRoute: AboutRoute,
   AppRoute: AppRouteWithChildren,
   AuthRoute: AuthRoute,
