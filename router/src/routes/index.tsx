@@ -114,6 +114,17 @@ function Home() {
       </Section>
 
       <Section
+        title="Navigation Blocking"
+        description="from 側からの退場交渉。未保存フォーム離脱阻止"
+      >
+        <Card
+          to="/nav-lab/dirty-form"
+          label="/nav-lab/dirty-form"
+          hint="useBlocker の withResolver false/true を並べて体感"
+        />
+      </Section>
+
+      <Section
         title="Pathless Layout Route (_authenticated)"
         description="同じ guard を URL に出さずに当てる流儀"
       >

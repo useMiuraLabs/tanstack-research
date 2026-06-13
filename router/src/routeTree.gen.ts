@@ -25,6 +25,7 @@ import { Route as ProductsPreloadFreshRouteImport } from './routes/products.prel
 import { Route as ProductsFreshRouteImport } from './routes/products.fresh'
 import { Route as ProductsCachedRouteImport } from './routes/products.cached'
 import { Route as PostsPostIdRouteImport } from './routes/posts.$postId'
+import { Route as NavLabDirtyFormRouteImport } from './routes/nav-lab.dirty-form'
 import { Route as AuthLabWaitRouteImport } from './routes/auth-lab.wait'
 import { Route as AuthLabUnknownReturnRouteImport } from './routes/auth-lab.unknown-return'
 import { Route as AppDashboardRouteImport } from './routes/app.dashboard'
@@ -111,6 +112,11 @@ const PostsPostIdRoute = PostsPostIdRouteImport.update({
   path: '/$postId',
   getParentRoute: () => PostsRoute,
 } as any)
+const NavLabDirtyFormRoute = NavLabDirtyFormRouteImport.update({
+  id: '/nav-lab/dirty-form',
+  path: '/nav-lab/dirty-form',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthLabWaitRoute = AuthLabWaitRouteImport.update({
   id: '/auth-lab/wait',
   path: '/auth-lab/wait',
@@ -159,6 +165,7 @@ export interface FileRoutesByFullPath {
   '/app/dashboard': typeof AppDashboardRoute
   '/auth-lab/unknown-return': typeof AuthLabUnknownReturnRoute
   '/auth-lab/wait': typeof AuthLabWaitRoute
+  '/nav-lab/dirty-form': typeof NavLabDirtyFormRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/products/cached': typeof ProductsCachedRoute
   '/products/fresh': typeof ProductsFreshRoute
@@ -181,6 +188,7 @@ export interface FileRoutesByTo {
   '/app/dashboard': typeof AppDashboardRoute
   '/auth-lab/unknown-return': typeof AuthLabUnknownReturnRoute
   '/auth-lab/wait': typeof AuthLabWaitRoute
+  '/nav-lab/dirty-form': typeof NavLabDirtyFormRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/products/cached': typeof ProductsCachedRoute
   '/products/fresh': typeof ProductsFreshRoute
@@ -206,6 +214,7 @@ export interface FileRoutesById {
   '/app/dashboard': typeof AppDashboardRoute
   '/auth-lab/unknown-return': typeof AuthLabUnknownReturnRoute
   '/auth-lab/wait': typeof AuthLabWaitRoute
+  '/nav-lab/dirty-form': typeof NavLabDirtyFormRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/products/cached': typeof ProductsCachedRoute
   '/products/fresh': typeof ProductsFreshRoute
@@ -231,6 +240,7 @@ export interface FileRouteTypes {
     | '/app/dashboard'
     | '/auth-lab/unknown-return'
     | '/auth-lab/wait'
+    | '/nav-lab/dirty-form'
     | '/posts/$postId'
     | '/products/cached'
     | '/products/fresh'
@@ -253,6 +263,7 @@ export interface FileRouteTypes {
     | '/app/dashboard'
     | '/auth-lab/unknown-return'
     | '/auth-lab/wait'
+    | '/nav-lab/dirty-form'
     | '/posts/$postId'
     | '/products/cached'
     | '/products/fresh'
@@ -277,6 +288,7 @@ export interface FileRouteTypes {
     | '/app/dashboard'
     | '/auth-lab/unknown-return'
     | '/auth-lab/wait'
+    | '/nav-lab/dirty-form'
     | '/posts/$postId'
     | '/products/cached'
     | '/products/fresh'
@@ -298,6 +310,7 @@ export interface RootRouteChildren {
   SearchRoute: typeof SearchRoute
   AuthLabUnknownReturnRoute: typeof AuthLabUnknownReturnRoute
   AuthLabWaitRoute: typeof AuthLabWaitRoute
+  NavLabDirtyFormRoute: typeof NavLabDirtyFormRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -414,6 +427,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PostsPostIdRouteImport
       parentRoute: typeof PostsRoute
     }
+    '/nav-lab/dirty-form': {
+      id: '/nav-lab/dirty-form'
+      path: '/nav-lab/dirty-form'
+      fullPath: '/nav-lab/dirty-form'
+      preLoaderRoute: typeof NavLabDirtyFormRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth-lab/wait': {
       id: '/auth-lab/wait'
       path: '/auth-lab/wait'
@@ -527,6 +547,7 @@ const rootRouteChildren: RootRouteChildren = {
   SearchRoute: SearchRoute,
   AuthLabUnknownReturnRoute: AuthLabUnknownReturnRoute,
   AuthLabWaitRoute: AuthLabWaitRoute,
+  NavLabDirtyFormRoute: NavLabDirtyFormRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
