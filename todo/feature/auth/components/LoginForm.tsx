@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { AuthForm } from "./AuthForm";
-import type { Auth } from "../types";
+import { authSchema, type Auth } from "../types";
+import { useAuth } from "../AuthProvider";
+import * as v from "valibot";
 
 export const LoginForm = () => {
+  const { setSession } = useAuth();
   const [error, setError] = useState("");
   const nav = useNavigate();
 
@@ -18,13 +21,28 @@ export const LoginForm = () => {
           password: auth.pass,
         }),
       });
+
       if (!res.ok) {
         const body = await res.text();
         setError(`login failed: ${res.status} ${body}`);
         return;
       }
-      nav({ to: "/todo" });
-    } catch {
+
+      const validatedRes = v.parse(authSchema, await res.json());
+      console.log("res", validatedRes);
+
+      setSession({
+        token: validatedRes.token,
+        user: {
+          id: validatedRes.user.id,
+          email: validatedRes.user.email,
+          name: validatedRes.user.name,
+        },
+      });
+
+      // nav({ to: "/todo" });
+    } catch (e) {
+      console.log(e);
       setError("通信エラー");
     }
   };
