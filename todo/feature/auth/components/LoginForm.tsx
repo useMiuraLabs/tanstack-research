@@ -40,7 +40,7 @@ export const LoginForm = () => {
         },
       });
 
-      // nav({ to: "/todo" });
+      nav({ to: "/todos" });
     } catch (e) {
       console.log(e);
       setError("通信エラー");

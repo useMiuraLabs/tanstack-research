@@ -38,7 +38,7 @@ export const AuthForm = ({
       <label className="block">
         <p>email</p>
         <input
-          type="email"
+          type="text"
           className="outline"
           value={auth.email}
           onChange={(e) => setAuth({ ...auth, email: e.target.value })}
@@ -47,7 +47,7 @@ export const AuthForm = ({
       <label className="block">
         <p>pass</p>
         <input
-          type="password"
+          type="text"
           className="outline"
           value={auth.pass}
           onChange={(e) => setAuth({ ...auth, pass: e.target.value })}
