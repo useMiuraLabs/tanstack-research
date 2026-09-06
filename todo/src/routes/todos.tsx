@@ -4,13 +4,24 @@ import { NewTodoForm } from "../../feature/todos/components/form/NewTodoForm";
 import { authFetch } from "../../feature/auth/api";
 import { todoListSchema } from "../../feature/todos/types";
 
+const searchSchema = v.object({
+  t: v.optional(v.string()),
+  d: v.optional(v.string()),
+  status: v.optional(v.picklist(["done", "doing", "all"]), "all"),
+});
 export const Route = createFileRoute("/todos")({
+  validateSearch: searchSchema,
   beforeLoad: ({ context }) => {
     console.log(context.auth.user);
     if (!context.auth.user) {
       throw redirect({ to: "/login" });
     }
   },
+  loaderDeps: ({ search }) => ({
+    t: search.t,
+    d: search.d,
+    status: search.status,
+  }),
   loader: async () => {
     try {
       const res = await authFetch("/api/todos");
