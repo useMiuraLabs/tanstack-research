@@ -12,14 +12,26 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as PostsRouteImport } from './routes/posts'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as EchoRouteImport } from './routes/echo'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AppRouteImport } from './routes/app'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
+import { Route as R403RouteImport } from './routes/403'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PostsIndexRouteImport } from './routes/posts.index'
 import { Route as ProductsPreloadFreshRouteImport } from './routes/products.preload-fresh'
 import { Route as ProductsFreshRouteImport } from './routes/products.fresh'
 import { Route as ProductsCachedRouteImport } from './routes/products.cached'
 import { Route as PostsPostIdRouteImport } from './routes/posts.$postId'
+import { Route as NavLabDirtyFormRouteImport } from './routes/nav-lab.dirty-form'
+import { Route as AuthLabWaitRouteImport } from './routes/auth-lab.wait'
+import { Route as AuthLabUnknownReturnRouteImport } from './routes/auth-lab.unknown-return'
+import { Route as AppDashboardRouteImport } from './routes/app.dashboard'
+import { Route as AppAdminRouteImport } from './routes/app.admin'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated.settings'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated.profile'
 
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
@@ -36,14 +48,38 @@ const PostsRoute = PostsRouteImport.update({
   path: '/posts',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EchoRoute = EchoRouteImport.update({
   id: '/echo',
   path: '/echo',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const R403Route = R403RouteImport.update({
+  id: '/403',
+  path: '/403',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -76,14 +112,60 @@ const PostsPostIdRoute = PostsPostIdRouteImport.update({
   path: '/$postId',
   getParentRoute: () => PostsRoute,
 } as any)
+const NavLabDirtyFormRoute = NavLabDirtyFormRouteImport.update({
+  id: '/nav-lab/dirty-form',
+  path: '/nav-lab/dirty-form',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthLabWaitRoute = AuthLabWaitRouteImport.update({
+  id: '/auth-lab/wait',
+  path: '/auth-lab/wait',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthLabUnknownReturnRoute = AuthLabUnknownReturnRouteImport.update({
+  id: '/auth-lab/unknown-return',
+  path: '/auth-lab/unknown-return',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppDashboardRoute = AppDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAdminRoute = AppAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AppRoute,
+} as any)
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/403': typeof R403Route
   '/about': typeof AboutRoute
+  '/app': typeof AppRouteWithChildren
+  '/auth': typeof AuthRoute
   '/echo': typeof EchoRoute
+  '/login': typeof LoginRoute
   '/posts': typeof PostsRouteWithChildren
   '/products': typeof ProductsRouteWithChildren
   '/search': typeof SearchRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/settings': typeof AuthenticatedSettingsRoute
+  '/app/admin': typeof AppAdminRoute
+  '/app/dashboard': typeof AppDashboardRoute
+  '/auth-lab/unknown-return': typeof AuthLabUnknownReturnRoute
+  '/auth-lab/wait': typeof AuthLabWaitRoute
+  '/nav-lab/dirty-form': typeof NavLabDirtyFormRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/products/cached': typeof ProductsCachedRoute
   '/products/fresh': typeof ProductsFreshRoute
@@ -92,10 +174,21 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/403': typeof R403Route
   '/about': typeof AboutRoute
+  '/app': typeof AppRouteWithChildren
+  '/auth': typeof AuthRoute
   '/echo': typeof EchoRoute
+  '/login': typeof LoginRoute
   '/products': typeof ProductsRouteWithChildren
   '/search': typeof SearchRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/settings': typeof AuthenticatedSettingsRoute
+  '/app/admin': typeof AppAdminRoute
+  '/app/dashboard': typeof AppDashboardRoute
+  '/auth-lab/unknown-return': typeof AuthLabUnknownReturnRoute
+  '/auth-lab/wait': typeof AuthLabWaitRoute
+  '/nav-lab/dirty-form': typeof NavLabDirtyFormRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/products/cached': typeof ProductsCachedRoute
   '/products/fresh': typeof ProductsFreshRoute
@@ -105,11 +198,23 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/403': typeof R403Route
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/about': typeof AboutRoute
+  '/app': typeof AppRouteWithChildren
+  '/auth': typeof AuthRoute
   '/echo': typeof EchoRoute
+  '/login': typeof LoginRoute
   '/posts': typeof PostsRouteWithChildren
   '/products': typeof ProductsRouteWithChildren
   '/search': typeof SearchRoute
+  '/_authenticated/profile': typeof AuthenticatedProfileRoute
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
+  '/app/admin': typeof AppAdminRoute
+  '/app/dashboard': typeof AppDashboardRoute
+  '/auth-lab/unknown-return': typeof AuthLabUnknownReturnRoute
+  '/auth-lab/wait': typeof AuthLabWaitRoute
+  '/nav-lab/dirty-form': typeof NavLabDirtyFormRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/products/cached': typeof ProductsCachedRoute
   '/products/fresh': typeof ProductsFreshRoute
@@ -120,11 +225,22 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/403'
     | '/about'
+    | '/app'
+    | '/auth'
     | '/echo'
+    | '/login'
     | '/posts'
     | '/products'
     | '/search'
+    | '/profile'
+    | '/settings'
+    | '/app/admin'
+    | '/app/dashboard'
+    | '/auth-lab/unknown-return'
+    | '/auth-lab/wait'
+    | '/nav-lab/dirty-form'
     | '/posts/$postId'
     | '/products/cached'
     | '/products/fresh'
@@ -133,10 +249,21 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/403'
     | '/about'
+    | '/app'
+    | '/auth'
     | '/echo'
+    | '/login'
     | '/products'
     | '/search'
+    | '/profile'
+    | '/settings'
+    | '/app/admin'
+    | '/app/dashboard'
+    | '/auth-lab/unknown-return'
+    | '/auth-lab/wait'
+    | '/nav-lab/dirty-form'
     | '/posts/$postId'
     | '/products/cached'
     | '/products/fresh'
@@ -145,11 +272,23 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/403'
+    | '/_authenticated'
     | '/about'
+    | '/app'
+    | '/auth'
     | '/echo'
+    | '/login'
     | '/posts'
     | '/products'
     | '/search'
+    | '/_authenticated/profile'
+    | '/_authenticated/settings'
+    | '/app/admin'
+    | '/app/dashboard'
+    | '/auth-lab/unknown-return'
+    | '/auth-lab/wait'
+    | '/nav-lab/dirty-form'
     | '/posts/$postId'
     | '/products/cached'
     | '/products/fresh'
@@ -159,11 +298,19 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  R403Route: typeof R403Route
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   AboutRoute: typeof AboutRoute
+  AppRoute: typeof AppRouteWithChildren
+  AuthRoute: typeof AuthRoute
   EchoRoute: typeof EchoRoute
+  LoginRoute: typeof LoginRoute
   PostsRoute: typeof PostsRouteWithChildren
   ProductsRoute: typeof ProductsRouteWithChildren
   SearchRoute: typeof SearchRoute
+  AuthLabUnknownReturnRoute: typeof AuthLabUnknownReturnRoute
+  AuthLabWaitRoute: typeof AuthLabWaitRoute
+  NavLabDirtyFormRoute: typeof NavLabDirtyFormRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -189,6 +336,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PostsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/echo': {
       id: '/echo'
       path: '/echo'
@@ -196,11 +350,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EchoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/403': {
+      id: '/403'
+      path: '/403'
+      fullPath: '/403'
+      preLoaderRoute: typeof R403RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -245,8 +427,83 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PostsPostIdRouteImport
       parentRoute: typeof PostsRoute
     }
+    '/nav-lab/dirty-form': {
+      id: '/nav-lab/dirty-form'
+      path: '/nav-lab/dirty-form'
+      fullPath: '/nav-lab/dirty-form'
+      preLoaderRoute: typeof NavLabDirtyFormRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth-lab/wait': {
+      id: '/auth-lab/wait'
+      path: '/auth-lab/wait'
+      fullPath: '/auth-lab/wait'
+      preLoaderRoute: typeof AuthLabWaitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth-lab/unknown-return': {
+      id: '/auth-lab/unknown-return'
+      path: '/auth-lab/unknown-return'
+      fullPath: '/auth-lab/unknown-return'
+      preLoaderRoute: typeof AuthLabUnknownReturnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/dashboard': {
+      id: '/app/dashboard'
+      path: '/dashboard'
+      fullPath: '/app/dashboard'
+      preLoaderRoute: typeof AppDashboardRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/admin': {
+      id: '/app/admin'
+      path: '/admin'
+      fullPath: '/app/admin'
+      preLoaderRoute: typeof AppAdminRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
   }
 }
+
+interface AuthenticatedRouteChildren {
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedProfileRoute: AuthenticatedProfileRoute,
+  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
+)
+
+interface AppRouteChildren {
+  AppAdminRoute: typeof AppAdminRoute
+  AppDashboardRoute: typeof AppDashboardRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppAdminRoute: AppAdminRoute,
+  AppDashboardRoute: AppDashboardRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
 interface PostsRouteChildren {
   PostsPostIdRoute: typeof PostsPostIdRoute
@@ -278,11 +535,19 @@ const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  R403Route: R403Route,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AboutRoute: AboutRoute,
+  AppRoute: AppRouteWithChildren,
+  AuthRoute: AuthRoute,
   EchoRoute: EchoRoute,
+  LoginRoute: LoginRoute,
   PostsRoute: PostsRouteWithChildren,
   ProductsRoute: ProductsRouteWithChildren,
   SearchRoute: SearchRoute,
+  AuthLabUnknownReturnRoute: AuthLabUnknownReturnRoute,
+  AuthLabWaitRoute: AuthLabWaitRoute,
+  NavLabDirtyFormRoute: NavLabDirtyFormRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

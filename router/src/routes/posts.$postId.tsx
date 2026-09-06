@@ -1,14 +1,14 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
-import { fetchPost } from '../lib/fakeApi'
+import { Link, createFileRoute } from "@tanstack/react-router";
+import { fetchPost } from "../lib/fakeApi";
 
-export const Route = createFileRoute('/posts/$postId')({
+export const Route = createFileRoute("/posts/$postId")({
   loader: ({ params }) => fetchPost(params.postId),
   component: PostDetail,
-})
+});
 
 function PostDetail() {
-  const params = Route.useParams()
-  const post = Route.useLoaderData()
+  const params = Route.useParams();
+  const post = Route.useLoaderData();
 
   return (
     <article className="rounded-lg border border-gray-200 p-6">
@@ -25,5 +25,5 @@ function PostDetail() {
         <p className="mt-2 text-lg text-red-600">投稿が見つかりません</p>
       )}
     </article>
-  )
+  );
 }

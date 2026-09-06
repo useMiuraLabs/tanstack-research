@@ -14,41 +14,49 @@
 公式の Guide セクションの並びに沿った推奨順序です。
 
 ### Step 1. Routing Concepts
+
 - URL: https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts
 - 学ぶこと: File-based routing と Code-based routing の違い、`__root` ルートの意味、`Outlet` によるネストレンダリング
 - 体感ポイント: ルートが TypeScript の型として存在することの嬉しさ
 
 ### Step 2. Route Trees & Nesting
+
 - URL: https://tanstack.com/router/latest/docs/framework/react/guide/route-trees
 - 学ぶこと: ファイル命名規約 (`$param`, `_layout`, `(group)`, `index` など)、`routeTree.gen.ts` の自動生成
 - 体感ポイント: ファイル名だけでルート構造が決まる宣言的な設計
 
 ### Step 3. Route Matching
+
 - URL: https://tanstack.com/router/latest/docs/framework/react/guide/route-matching
 - 学ぶこと: マッチング優先順位、pathless route、catch-all
 - 体感ポイント: あいまいさのないルート解決のルール
 
 ### Step 4. Navigation
+
 - URL: https://tanstack.com/router/latest/docs/framework/react/guide/navigation
 - 学ぶこと: `<Link>` の型安全な `to` / `params` / `search`、`useNavigate`、`defaultPreload: 'intent'`
 - 体感ポイント: `to="/posts/$postId"` を書くと params が必須になる型の力
 
 ### Step 5. Path Params
+
 - URL: https://tanstack.com/router/latest/docs/framework/react/guide/path-params
 - 学ぶこと: `$id` の宣言、`Route.useParams()` の型推論
 - 体感ポイント: パラメータが型付きで取れる
 
 ### Step 6. Search Params ★ 思想の核心
+
 - URL: https://tanstack.com/router/latest/docs/framework/react/guide/search-params
 - 学ぶこと: `validateSearch` (Zod など)、`<Link search={...}>` の型安全、`Route.useSearch()`
 - 体感ポイント: search params が第一級の状態管理として扱われる。Next.js の `useSearchParams()` で文字列をパースする世界との断絶
 
 ### Step 7. Data Loading
+
 - URL: https://tanstack.com/router/latest/docs/framework/react/guide/data-loading
 - 学ぶこと: `loader`、`Route.useLoaderData()`、`staleTime` / `gcTime`、`defaultPreload` との連動
 - 体感ポイント: データ取得がルートに紐づく (Remix 的)。`useEffect + fetch` を書かない世界
 
 ### Step 8. Route Context
+
 - URL: https://tanstack.com/router/latest/docs/framework/react/guide/router-context
 - 学ぶこと: `beforeLoad` での context 注入、親から子への型安全な継承、認証チェックパターン
 - 体感ポイント: ミドルウェア的な処理が型を保ったまま流れる
