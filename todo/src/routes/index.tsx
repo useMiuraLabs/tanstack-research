@@ -10,6 +10,7 @@ function Home() {
         Edit <code>src/routes/index.tsx</code> to get started.
       </p>
       <Link to="/login"> ログイン</Link>
+      <Link to="/query"> Query で遊ぶ</Link>
     </div>
   );
 }
